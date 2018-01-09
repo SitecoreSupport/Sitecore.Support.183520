@@ -67,10 +67,20 @@
 
         protected string GetProtectedHtml(SaveRichTextContentArgs args, string link)
         {
-            if (!link.Contains("rel=\"noopener noreferrer\""))
+            #region ----------------- CODE FROM 8.2.4.0 version ------------------------
+            //if (!link.Contains("rel=\"noopener noreferrer\""))
+            //{
+            //    return link.Insert(link.IndexOf(" "), " rel=\"noopener noreferrer\" ");
+            //}
+            #endregion ----------------- CODE FROM 8.2.4.0 version ------------------------
+
+            #region -----------------  8.2.4.1 version code (The additional check added to avoid duplicates of the 'rel' attr) ------------------------
+            if (!link.Contains("rel=\"noopener noreferrer\"")&& !link.Contains("rel=\"noopener\"")&& !link.Contains("rel=\"noreferrer\""))
             {
                 return link.Insert(link.IndexOf(" "), " rel=\"noopener noreferrer\" ");
             }
+            #endregion -----------------  8.2.4.1 version code (The additional check added to avoid duplicates of the 'rel' attr) ------------------------
+
             return link;
         }
 
